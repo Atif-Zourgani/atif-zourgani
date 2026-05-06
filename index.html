@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atif Mickaël Zourgani — Développeur Full Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  ::selection { background: var(--blue-200); color: var(--blue-900); }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--blue-200); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue-500); }
+
+  :root {
+    --blue-900: #1E3A5F;
+    --blue-700: #2D5F8A;
+    --blue-500: #4A8BB5;
+    --blue-200: #A8CBE0;
+    --blue-50:  #F0F6FA;
+    --ink:      #1A1A1A;
+    --ink-2:    #555555;
+    --ink-3:    #6A6A6A;
+    --white:    #FFFFFF;
+    --rule:     #E8EDF2;
+    --serif:    'DM Serif Display', Georgia, serif;
+    --sans:     'Instrument Sans', sans-serif;
+    --mono:     'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--rule);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--blue-700);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1.5px;
+    background: var(--blue-700);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--blue-700); }
+  .nav-links a.active::after,
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ─── HAMBURGER ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 0 0 8px;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 1.5px;
+    background: var(--blue-900);
+    border-radius: 2px;
+    transition: transform 0.38s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity   0.22s ease,
+                width     0.3s  cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .nav-hamburger span:nth-child(1) { width: 24px; }
+  .nav-hamburger span:nth-child(2) { width: 16px; }
+  .nav-hamburger span:nth-child(3) { width: 24px; }
+
+  .nav-hamburger.open span:nth-child(1) { width: 22px; transform: translateY(7.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .nav-hamburger.open span:nth-child(3) { width: 22px; transform: translateY(-7.5px) rotate(-45deg); }
+
+  /* ─── MENU MOBILE ─── */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--blue-900);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 7rem 2.5rem 3.5rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.38s ease, visibility 0.38s ease;
+  }
+  .mobile-menu::before {
+    content: '';
+    position: absolute;
+    bottom: -30%; right: -20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(74,139,181,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .mobile-menu a {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    width: 100%;
+    padding: 0.8rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    min-height: 44px;
+    transform: translateY(18px);
+    opacity: 0;
+    transition: color 0.2s ease,
+                transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity   0.4s ease;
+  }
+  .mobile-menu a::before {
+    content: attr(data-num);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--blue-200);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+  .mobile-menu.open a:nth-child(1) { transition-delay: 0.08s; }
+  .mobile-menu.open a:nth-child(2) { transition-delay: 0.14s; }
+  .mobile-menu.open a:nth-child(3) { transition-delay: 0.20s; }
+  .mobile-menu.open a:nth-child(4) { transition-delay: 0.26s; }
+  .mobile-menu a:hover { color: white; }
+
+  /* ─── BADGE DISPO ─── */
+  .badge-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #166534;
+    background: #f0fdf4;
+    border: 0.5px solid #bbf7d0;
+    padding: 5px 13px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0s forwards;
+  }
+  .badge-available::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+    70%  { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 640px; height: 640px;
+    background: radial-gradient(circle, #A8CBE0 0%, transparent 65%);
+    opacity: 0.22;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-700);
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.15s forwards;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--blue-900);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.25s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--blue-500); }
+  .hero-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.75rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--ink-2);
+    max-width: 480px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--blue-900);
+    color: white;
+    padding: 0.8rem 1.75rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue-700); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,58,95,0.28); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--blue-200);
+    color: var(--blue-700);
+    padding: 0.8rem 1.75rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--blue-700); background: var(--blue-50); transform: translateY(-2px); }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fadeIn 1s 0.7s forwards;
+  }
+  .avatar-wrap {
+    position: relative;
+    width: 340px;
+    height: 340px;
+  }
+  .avatar-wrap svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 32px 72px rgba(30,58,95,0.28);
+  }
+
+  /* ─── SECTION GÉNÉRIQUE ─── */
+  section { padding: 6rem 4rem; border-top: 0.5px solid var(--rule); }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-700);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--blue-900);
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+
+  /* ─── STACK ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--blue-50);
+    border: 0.5px solid var(--blue-200);
+    border-left: 2px solid var(--blue-200);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .skill-group:hover { border-color: var(--blue-500); border-left-color: var(--blue-700); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(74,139,181,0.12); }
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-700);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 0.75rem;
+    background: white;
+    border: 0.5px solid var(--blue-200);
+    color: var(--blue-900);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .skill-tag:hover { border-color: var(--blue-500); color: var(--blue-700); }
+
+
+  /* ─── EXPÉRIENCES ─── */
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+  .exp-item:first-child { border-left: 2px solid var(--blue-500); padding-left: 1.25rem; margin-left: -1.25rem; }
+  .exp-meta { padding-top: 4px; }
+  .exp-dates {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--blue-700);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+  .exp-company { font-size: 0.82rem; color: var(--ink-3); font-weight: 500; }
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    color: var(--blue-900);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .exp-desc {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .exp-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    background: var(--blue-50);
+    color: var(--blue-700);
+    border: 0.5px solid var(--blue-200);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .exp-item.secondary .exp-role {
+    font-size: 1.1rem;
+    color: var(--ink-2);
+  }
+  .exp-item.secondary .exp-dates { color: var(--ink-3); }
+  .exp-item.secondary .exp-desc { font-size: 0.84rem; color: var(--ink-3); }
+
+  /* ─── CV DOWNLOAD ─── */
+  .cv-section {
+    background: var(--blue-900);
+    color: white;
+    text-align: center;
+    padding: 6rem 4rem;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .cv-section::before {
+    content: '';
+    position: absolute;
+    bottom: -40%; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(74,139,181,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cv-section .section-label { color: var(--blue-200); }
+  .cv-section .section-title { color: white; margin-bottom: 1rem; }
+  .cv-tagline {
+    color: var(--blue-200);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: var(--blue-900);
+    padding: 1rem 2.5rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .btn-download:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.32); }
+  .btn-download svg { width: 18px; height: 18px; }
+
+  /* ─── CONTACT ─── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .contact-card {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 0.5px solid var(--rule);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    min-width: 0;
+  }
+  .contact-card:hover { border-color: var(--blue-500); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,139,181,0.1); }
+  .contact-icon {
+    width: 38px; height: 38px;
+    background: var(--blue-50);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 18px; height: 18px; stroke: var(--blue-700); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-info { min-width: 0; overflow: hidden; }
+  .contact-label { font-size: 0.7rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .contact-value { font-size: 0.85rem; font-weight: 500; color: var(--blue-900); overflow-wrap: break-word; word-break: break-word; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 0.5px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    font-family: var(--mono);
+  }
+
+  /* ─── SKIP LINK ─── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--blue-900);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.15s;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  /* ─── FOCUS VISIBLE ─── */
+  :focus-visible {
+    outline: 2.5px solid var(--blue-700);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .nav-hamburger:focus-visible { border-radius: 4px; }
+  .mobile-menu a:focus-visible { outline-color: white; }
+
+  /* ─── REDUCED MOTION ─── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2.5rem; }
+    .hero::before { display: none; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-meta { display: flex; flex-wrap: wrap; gap: 0 1rem; align-items: baseline; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .cv-section { padding: 4rem 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 3rem 1.25rem; }
+    .cv-section { padding: 3rem 1.25rem; }
+    .hero { padding: 6rem 1.25rem 2.5rem; }
+    .hero-actions { flex-direction: column; }
+    .btn-primary,
+    .btn-secondary { width: 100%; justify-content: center; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skill-group { padding: 1.1rem; }
+    .section-label { font-size: 0.72rem; }
+    .exp-dates { font-size: 0.75rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.25rem; }
+  }
+
+  @media (max-width: 360px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+<!-- NAV -->
+<nav aria-label="Navigation principale">
+  <a class="nav-logo" href="#">AMZ.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navigation" aria-modal="true" aria-hidden="true">
+  <a href="#stack" data-num="01" onclick="closeMenu()">Stack</a>
+  <a href="#experience" data-num="02" onclick="closeMenu()">Expérience</a>
+  <a href="#cv" data-num="03" onclick="closeMenu()">CV</a>
+  <a href="#contact" data-num="04" onclick="closeMenu()">Contact</a>
+</div>
+
+<main id="main-content">
+
+<!-- HERO -->
+<section class="hero" style="border-top: none;">
+  <div class="hero-content">
+    <div class="badge-available">Disponible octobre 2026 &mdash; Bordeaux &middot; Hybride &middot; Remote</div>
+    <p class="hero-eyebrow">// Développeur Full Stack</p>
+    <h1 class="hero-name">Atif<br><em>Mickaël</em><br>Zourgani</h1>
+    <p class="hero-title">Symfony · React · Node.js &mdash; 5 ans d'expérience</p>
+    <p class="hero-desc">Je conçois et livre des produits robustes, de l'API au déploiement. SaaS DeepTech, plateformes temps réel, référent technique sur des équipes jusqu'à 20 développeurs.</p>
+    <div class="hero-actions">
+      <a href="#cv" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Télécharger le CV
+      </a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <defs>
+          <radialGradient id="avatarBg" cx="50%" cy="38%" r="65%">
+            <stop offset="0%" stop-color="#2D5F8A"/>
+            <stop offset="100%" stop-color="#1A2E45"/>
+          </radialGradient>
+          <clipPath id="avatarClip">
+            <circle cx="140" cy="140" r="136"/>
+          </clipPath>
+        </defs>
+        <circle cx="140" cy="140" r="140" fill="url(#avatarBg)"/>
+        <g clip-path="url(#avatarClip)">
+          <circle cx="140" cy="105" r="50" fill="#A8CBE0" opacity="0.88"/>
+          <ellipse cx="140" cy="255" rx="98" ry="78" fill="#A8CBE0" opacity="0.88"/>
+        </g>
+        <circle cx="140" cy="140" r="136" fill="none" stroke="#4A8BB5" stroke-width="1" opacity="0.35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- STACK -->
+<section id="stack">
+  <p class="section-label">// 01 &mdash; Compétences</p>
+  <h2 class="section-title">Stack technique</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Back-End</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Symfony</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">API REST</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express</span>
+        <span class="skill-tag">Twig</span>
+        <span class="skill-tag">Composer</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Front-End</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">Tailwind</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Base de données</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Doctrine ORM</span>
+        <span class="skill-tag">Sequelize</span>
+        <span class="skill-tag">Modélisation BDD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">DevOps & Outils</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">AWS S3</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">NPM</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Mobile</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">Intégration API externes</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">IA & Automatisation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Claude</span>
+        <span class="skill-tag">ChatGPT</span>
+        <span class="skill-tag">Prompt Engineering</span>
+        <span class="skill-tag">Agents IA</span>
+        <span class="skill-tag">Intégration API IA</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Sécurité & Méthodologie</div>
+      <div class="skill-tags">
+        <span class="skill-tag">RGPD</span>
+        <span class="skill-tag">JWT / Auth token</span>
+        <span class="skill-tag">Gestion des droits</span>
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">MVC</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Soft skills & Pédagogie</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Communication client</span>
+        <span class="skill-tag">Lead Tech</span>
+        <span class="skill-tag">Formation DWWM</span>
+        <span class="skill-tag">Gestion de projet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXPÉRIENCES -->
+<section id="experience">
+  <p class="section-label">// 02 &mdash; Parcours</p>
+  <h2 class="section-title">Expériences</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">Juin 2025 &mdash; Présent</div>
+        <div class="exp-company">La Plateforme · Bordeaux</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Développeur Full Stack & Référent Technique</div>
+        <p class="exp-desc">Développement full stack du projet Marsai Festival : dépôt de films, upload vidéo, cron jobs, message bus, auth par token, stockage AWS S3, interface de sélection, panel admin complet. Lead Tech et Product Owner sur une équipe de 20 développeurs juniors — architecture, code reviews, résolution de bugs complexes, accompagnement sur tickets et transmission des bonnes pratiques (sécurité, DevOps, Git, Docker).</p>
+        <div class="exp-stack">
+          <span class="stack-tag">React</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">MySQL</span><span class="stack-tag">AWS S3</span><span class="stack-tag">Docker</span><span class="stack-tag">Git</span><span class="stack-tag">TypeScript</span><span class="stack-tag">Vite</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">2023 &mdash; 2024</div>
+        <div class="exp-company">XXII · Paris (télétravail)</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Développeur Full Stack</div>
+        <p class="exp-desc">Développement sur XXII CORE, plateforme SaaS d'analyse vidéo par IA &mdash; startup DeepTech lauréate French Tech 2030, clients SNCF et Ministère de l'Intérieur. Dashboards temps réel, alertes, gestion des permissions, intégrations API RESTful, optimisation des performances. Méthodologie Agile/Scrum, refactoring multi-couches, collaboration directe avec l'équipe produit en remote.</p>
+        <div class="exp-stack">
+          <span class="stack-tag">React</span><span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">API REST</span><span class="stack-tag">WebSocket</span><span class="stack-tag">Webpack</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">2021</div>
+        <div class="exp-company">Micom · Bordeaux · Freelance</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Développeur Back-End</div>
+        <p class="exp-desc">Reprise et refactoring complet d'une application web de comité d'entreprise développée sur un framework PHP maison &mdash; remise sur de bonnes bases architecturales sans perte des fonctionnalités existantes. Restructuration et optimisation de la base de données, gestion des accès et droits utilisateurs, développement de nouvelles fonctionnalités.</p>
+        <div class="exp-stack">
+          <span class="stack-tag">PHP</span><span class="stack-tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">2021</div>
+        <div class="exp-company">Devolie · Bordeaux</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Développeur Back-End</div>
+        <p class="exp-desc">Conception et développement en autonomie du CRM interne &mdash; gestion des prospects, pipeline commercial, suivi des formations et apprenants, facturation et reporting. Modélisation BDD, architecture de l'application, tests unitaires, gestion des accès et rôles utilisateurs. Coordination avec des alternants sur certaines phases.</p>
+        <div class="exp-stack">
+          <span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">MySQL</span><span class="stack-tag">API RESTful</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">2020 &mdash; 2021</div>
+        <div class="exp-company">EGS · Bordeaux · Salarié</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Développeur Full Stack</div>
+        <p class="exp-desc">Premier poste &mdash; recruté par l'école qui m'a formé. Conception et développement en autonomie d'une plateforme de gestion scolaire complète : espace étudiant, parent et professeur, suivi de parcours, reporting. Développement d'un module de gamification du parcours scolaire &mdash; progression par niveaux, avatar personnalisable, validation de compétences avec tuteurs.</p>
+        <div class="exp-stack">
+          <span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">JavaScript</span><span class="stack-tag">TypeScript</span><span class="stack-tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item secondary">
+      <div class="exp-meta">
+        <div class="exp-dates">2020 &mdash; 2025</div>
+        <div class="exp-company">7 écoles · France</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Formateur Développement Web</div>
+        <p class="exp-desc">Formateur principal RNCP 5 (DWWM) et RNCP 6 &mdash; profils en reconversion et formation supérieure. 200+ apprenants sur 5 ans, présentiel et distanciel. Responsable pédagogique au Campus du Lac : recrutement des enseignants, conception du parcours. Taux de réussite aux certifications RNCP estimé à +90%.</p>
+        <div class="exp-stack">
+          <span class="stack-tag">MyDigitalSchool</span><span class="stack-tag">Campus du Lac</span><span class="stack-tag">Thalis-bs</span><span class="stack-tag">EGS</span><span class="stack-tag">La Piscine</span><span class="stack-tag">3W Académie</span><span class="stack-tag">La Plateforme</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CV DOWNLOAD -->
+<section class="cv-section" id="cv">
+  <p class="section-label">// 03 &mdash; Document</p>
+  <h2 class="section-title">Télécharger le CV</h2>
+  <p class="cv-tagline">Version complète au format PDF &mdash; expériences détaillées, stack technique et références.</p>
+  <a href="CV_Atif-Zourgani_Developpeur-Full-Stack_.pdf" download class="btn-download">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Télécharger le CV
+  </a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">// 04 &mdash; Contact</p>
+  <h2 class="section-title">Me contacter</h2>
+  <div class="contact-grid">
+    <a href="tel:0769679852" class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.66A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="contact-label">Téléphone</div>
+        <div class="contact-value">07 69 67 98 52</div>
+      </div>
+    </a>
+    <a href="mailto:atif.developpeur@gmail.com" class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="contact-label">Email</div>
+        <div class="contact-value">atif.developpeur@gmail.com</div>
+      </div>
+    </a>
+    <a href="https://www.atif-zourgani.fr" target="_blank" rel="noopener noreferrer" class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="contact-label">Site web</div>
+        <div class="contact-value">atif-zourgani.fr</div>
+      </div>
+    </a>
+    <a href="https://github.com/atifformateur" target="_blank" rel="noopener noreferrer" class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value">atifformateur</div>
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/Atif-Zourgani" target="_blank" rel="noopener noreferrer" class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">Atif-Zourgani</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Atif Mickaël Zourgani</span>
+  <span>Bordeaux, France</span>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const btn = document.querySelector('.nav-hamburger');
+    const menu = document.getElementById('mobileMenu');
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
+    menu.setAttribute('aria-hidden', String(isOpen));
+    document.body.style.overflow = !isOpen ? 'hidden' : '';
+    if (!isOpen) menu.querySelector('a')?.focus();
+  }
+  function closeMenu() {
+    const btn = document.querySelector('.nav-hamburger');
+    const menu = document.getElementById('mobileMenu');
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Ouvrir le menu');
+    menu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    btn.focus();
+  }
+
+  // Fermeture menu : Échap + piège de focus
+  document.addEventListener('keydown', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    if (!menu.classList.contains('open')) return;
+    if (e.key === 'Escape') { closeMenu(); return; }
+    if (e.key !== 'Tab') return;
+    const btn = document.querySelector('.nav-hamburger');
+    const links = [...menu.querySelectorAll('a')];
+    const focusable = [btn, ...links];
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // Scroll reveal expériences
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.exp-item').forEach(el => revealObserver.observe(el));
+
+  // Nav active link sur scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navEl = document.querySelector('nav');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => sectionObserver.observe(s));
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    const isMobile = window.innerWidth <= 900;
+    navEl.style.padding = window.scrollY > 60
+      ? (isMobile ? '0.75rem 1.5rem' : '0.75rem 4rem')
+      : (isMobile ? '1rem 1.5rem'   : '1.25rem 4rem');
+  });
+</script>
+
+</body>
+</html>
