@@ -6,7 +6,13 @@
       "Bash(Sort-Object FullName)",
       "Bash(Format-Table -AutoSize)",
       "Bash(git config *)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(python *)",
+      "PowerShell(Get-Command *)",
+      "Bash(node *)",
+      "Bash(npm install *)",
+      "Bash(npm config *)",
+      "WebSearch"
     ]
   }
 }

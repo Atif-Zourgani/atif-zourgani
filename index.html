@@ -3,7 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atif Mickaël Zourgani — Développeur Full Stack</title>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HEG1CEJSL6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HEG1CEJSL6');
+</script>
+
+<title>Atif Mickaël Zourgani — Développeur Full Stack · Bordeaux</title>
+
+<!-- Google Search Console -->
+<meta name="google-site-verification" content="9XGeo8fD2hDzn6CUTI451vKvLRXzfcShktUOtSzKijg">
+
+<!-- SEO core -->
+<meta name="description" content="Développeur Full Stack Symfony, React et Node.js à Bordeaux — 5 ans d'expérience, projets SaaS DeepTech, lead tech sur 20 développeurs. Disponible en freelance ou CDI dès octobre 2026.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Atif Mickaël Zourgani">
+<link rel="canonical" href="https://atif-zourgani.fr/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atif-zourgani.fr/">
+<meta property="og:title" content="Atif Mickaël Zourgani — Développeur Full Stack · Bordeaux">
+<meta property="og:description" content="Développeur Full Stack Symfony, React et Node.js à Bordeaux. 5 ans d'expérience sur des projets SaaS DeepTech, lead tech sur 20 développeurs. Disponible dès octobre 2026.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Atif Zourgani — Développeur Full Stack">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Atif Mickaël Zourgani — Développeur Full Stack · Bordeaux">
+<meta name="twitter:description" content="Développeur Full Stack Symfony, React et Node.js à Bordeaux. 5 ans d'expérience. Disponible dès octobre 2026.">
+
+<!-- Theme & Favicon -->
+<meta name="theme-color" content="#1E3A5F">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+
+<!-- Référencement local -->
+<meta name="geo.region" content="FR-NAQ">
+<meta name="geo.placename" content="Bordeaux, France">
+<meta name="geo.position" content="44.837789;-0.579180">
+<meta name="ICBM" content="44.837789, -0.579180">
+
+<!-- JSON-LD Person Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Atif Mickaël Zourgani",
+  "url": "https://atif-zourgani.fr",
+  "email": "atif.developpeur@gmail.com",
+  "telephone": "+33769679852",
+  "jobTitle": "Développeur Full Stack",
+  "description": "Développeur Full Stack Symfony, React et Node.js avec 5 ans d'expérience en développement et formation. Basé à Bordeaux, disponible en freelance ou CDI dès octobre 2026.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bordeaux",
+    "addressRegion": "Nouvelle-Aquitaine",
+    "addressCountry": "FR"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/Atif-Zourgani",
+    "https://github.com/Atif-Zourgani",
+    "https://atif-zourgani.fr"
+  ],
+  "knowsAbout": [
+    "Symfony", "PHP", "React", "Node.js", "TypeScript", "JavaScript",
+    "Docker", "AWS S3", "MySQL", "PostgreSQL", "API REST", "WebSocket",
+    "Flutter", "React Native", "CI/CD", "Agile Scrum"
+  ],
+  "knowsLanguage": [
+    { "@type": "Language", "name": "Français" },
+    { "@type": "Language", "name": "Anglais" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -322,6 +399,47 @@
     box-shadow: 0 32px 72px rgba(30,58,95,0.28);
   }
 
+  /* ─── TERMINAL CARD ─── */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fadeIn 1s 0.7s forwards;
+  }
+  .terminal-card {
+    background: var(--blue-900);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 32px 72px rgba(30,58,95,0.32);
+    font-family: var(--mono);
+  }
+  .terminal-bar {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+  .terminal-dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+  }
+  .terminal-dot:nth-child(1) { background: #ff5f57; }
+  .terminal-dot:nth-child(2) { background: #febc2e; }
+  .terminal-dot:nth-child(3) { background: #28c840; }
+  .terminal-line {
+    font-size: 0.77rem;
+    line-height: 1.9;
+    display: block;
+  }
+  .terminal-prompt { color: var(--blue-500); user-select: none; }
+  .terminal-cmd { color: white; }
+  .terminal-out { color: var(--blue-200); padding-left: 1.1rem; display: block; }
+  .terminal-val { color: #7dd3fc; }
+  .terminal-gap { display: block; height: 0.6rem; }
+
   /* ─── SECTION GÉNÉRIQUE ─── */
   section { padding: 6rem 4rem; border-top: 0.5px solid var(--rule); }
   .section-label {
@@ -606,7 +724,7 @@
 
 <!-- NAV -->
 <nav aria-label="Navigation principale">
-  <a class="nav-logo" href="#">AMZ.DEV</a>
+  <a class="nav-logo" href="#">atif-zourgani.fr</a>
   <ul class="nav-links">
     <li><a href="#stack">Stack</a></li>
     <li><a href="#experience">Expérience</a></li>
@@ -635,7 +753,7 @@
     <p class="hero-eyebrow">// Développeur Full Stack</p>
     <h1 class="hero-name">Atif<br><em>Mickaël</em><br>Zourgani</h1>
     <p class="hero-title">Symfony · React · Node.js &mdash; 5 ans d'expérience</p>
-    <p class="hero-desc">Je conçois et livre des produits robustes, de l'API au déploiement. SaaS DeepTech, plateformes temps réel, référent technique sur des équipes jusqu'à 20 développeurs.</p>
+    <p class="hero-desc">Je comprends l'humain — client ou collaborateur — autant que le code. C'est ce qui me permet de livrer des solutions techniques en adéquation avec les vraies attentes, et de collaborer efficacement à tous les niveaux d'une équipe.</p>
     <div class="hero-actions">
       <a href="#cv" class="btn-primary">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -646,24 +764,26 @@
   </div>
 
   <div class="hero-visual" aria-hidden="true">
-    <div class="avatar-wrap">
-      <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" focusable="false">
-        <defs>
-          <radialGradient id="avatarBg" cx="50%" cy="38%" r="65%">
-            <stop offset="0%" stop-color="#2D5F8A"/>
-            <stop offset="100%" stop-color="#1A2E45"/>
-          </radialGradient>
-          <clipPath id="avatarClip">
-            <circle cx="140" cy="140" r="136"/>
-          </clipPath>
-        </defs>
-        <circle cx="140" cy="140" r="140" fill="url(#avatarBg)"/>
-        <g clip-path="url(#avatarClip)">
-          <circle cx="140" cy="105" r="50" fill="#A8CBE0" opacity="0.88"/>
-          <ellipse cx="140" cy="255" rx="98" ry="78" fill="#A8CBE0" opacity="0.88"/>
-        </g>
-        <circle cx="140" cy="140" r="136" fill="none" stroke="#4A8BB5" stroke-width="1" opacity="0.35"/>
-      </svg>
+    <div class="terminal-card">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+      </div>
+      <span class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-cmd">whoami</span></span>
+      <span class="terminal-out"><span class="terminal-val">Atif Mickaël Zourgani</span></span>
+      <span class="terminal-out">Développeur Full Stack</span>
+      <span class="terminal-gap"></span>
+      <span class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-cmd">stack --core</span></span>
+      <span class="terminal-out"><span class="terminal-val">Symfony · React · Node.js</span></span>
+      <span class="terminal-gap"></span>
+      <span class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-cmd">stats</span></span>
+      <span class="terminal-out"><span class="terminal-val">5</span> ans d'expérience</span>
+      <span class="terminal-out"><span class="terminal-val">200+</span> apprenants formés</span>
+      <span class="terminal-out"><span class="terminal-val">20</span> devs encadrés</span>
+      <span class="terminal-gap"></span>
+      <span class="terminal-line"><span class="terminal-prompt">$ </span><span class="terminal-cmd">status</span></span>
+      <span class="terminal-out"><span class="terminal-val">Disponible</span> — oct. 2026</span>
     </div>
   </div>
 </section>
@@ -755,6 +875,13 @@
         <span class="skill-tag">Gestion de projet</span>
       </div>
     </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Langues</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Français — natif</span>
+        <span class="skill-tag">Anglais — technique</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -771,7 +898,7 @@
         <div class="exp-company">La Plateforme · Bordeaux</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Développeur Full Stack & Référent Technique</div>
+        <h3 class="exp-role">Développeur Full Stack & Référent Technique</h3>
         <p class="exp-desc">Développement full stack du projet Marsai Festival : dépôt de films, upload vidéo, cron jobs, message bus, auth par token, stockage AWS S3, interface de sélection, panel admin complet. Lead Tech et Product Owner sur une équipe de 20 développeurs juniors — architecture, code reviews, résolution de bugs complexes, accompagnement sur tickets et transmission des bonnes pratiques (sécurité, DevOps, Git, Docker).</p>
         <div class="exp-stack">
           <span class="stack-tag">React</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">MySQL</span><span class="stack-tag">AWS S3</span><span class="stack-tag">Docker</span><span class="stack-tag">Git</span><span class="stack-tag">TypeScript</span><span class="stack-tag">Vite</span>
@@ -785,7 +912,7 @@
         <div class="exp-company">XXII · Paris (télétravail)</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Développeur Full Stack</div>
+        <h3 class="exp-role">Développeur Full Stack</h3>
         <p class="exp-desc">Développement sur XXII CORE, plateforme SaaS d'analyse vidéo par IA &mdash; startup DeepTech lauréate French Tech 2030, clients SNCF et Ministère de l'Intérieur. Dashboards temps réel, alertes, gestion des permissions, intégrations API RESTful, optimisation des performances. Méthodologie Agile/Scrum, refactoring multi-couches, collaboration directe avec l'équipe produit en remote.</p>
         <div class="exp-stack">
           <span class="stack-tag">React</span><span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">API REST</span><span class="stack-tag">WebSocket</span><span class="stack-tag">Webpack</span>
@@ -799,7 +926,7 @@
         <div class="exp-company">Micom · Bordeaux · Freelance</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Développeur Back-End</div>
+        <h3 class="exp-role">Développeur Back-End</h3>
         <p class="exp-desc">Reprise et refactoring complet d'une application web de comité d'entreprise développée sur un framework PHP maison &mdash; remise sur de bonnes bases architecturales sans perte des fonctionnalités existantes. Restructuration et optimisation de la base de données, gestion des accès et droits utilisateurs, développement de nouvelles fonctionnalités.</p>
         <div class="exp-stack">
           <span class="stack-tag">PHP</span><span class="stack-tag">MySQL</span>
@@ -813,7 +940,7 @@
         <div class="exp-company">Devolie · Bordeaux</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Développeur Back-End</div>
+        <h3 class="exp-role">Développeur Back-End</h3>
         <p class="exp-desc">Conception et développement en autonomie du CRM interne &mdash; gestion des prospects, pipeline commercial, suivi des formations et apprenants, facturation et reporting. Modélisation BDD, architecture de l'application, tests unitaires, gestion des accès et rôles utilisateurs. Coordination avec des alternants sur certaines phases.</p>
         <div class="exp-stack">
           <span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">MySQL</span><span class="stack-tag">API RESTful</span>
@@ -827,7 +954,7 @@
         <div class="exp-company">EGS · Bordeaux · Salarié</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Développeur Full Stack</div>
+        <h3 class="exp-role">Développeur Full Stack</h3>
         <p class="exp-desc">Premier poste &mdash; recruté par l'école qui m'a formé. Conception et développement en autonomie d'une plateforme de gestion scolaire complète : espace étudiant, parent et professeur, suivi de parcours, reporting. Développement d'un module de gamification du parcours scolaire &mdash; progression par niveaux, avatar personnalisable, validation de compétences avec tuteurs.</p>
         <div class="exp-stack">
           <span class="stack-tag">Symfony</span><span class="stack-tag">PHP</span><span class="stack-tag">JavaScript</span><span class="stack-tag">TypeScript</span><span class="stack-tag">MySQL</span>
@@ -841,7 +968,7 @@
         <div class="exp-company">7 écoles · France</div>
       </div>
       <div class="exp-body">
-        <div class="exp-role">Formateur Développement Web</div>
+        <h3 class="exp-role">Formateur Développement Web</h3>
         <p class="exp-desc">Formateur principal RNCP 5 (DWWM) et RNCP 6 &mdash; profils en reconversion et formation supérieure. 200+ apprenants sur 5 ans, présentiel et distanciel. Responsable pédagogique au Campus du Lac : recrutement des enseignants, conception du parcours. Taux de réussite aux certifications RNCP estimé à +90%.</p>
         <div class="exp-stack">
           <span class="stack-tag">MyDigitalSchool</span><span class="stack-tag">Campus du Lac</span><span class="stack-tag">Thalis-bs</span><span class="stack-tag">EGS</span><span class="stack-tag">La Piscine</span><span class="stack-tag">3W Académie</span><span class="stack-tag">La Plateforme</span>
